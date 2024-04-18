@@ -9,7 +9,7 @@ public class Estudiantes
 
     [Required(ErrorMessage = "Debe ingresar un número de matricula")]
     [RegularExpression(@"\d{4}-\d{4}", ErrorMessage = "El formato de la matricula debe ser xxxx-xxxx")]
-    public int Matricula { get; set; }
+    public string Matricula { get; set; }
 
     [Required(ErrorMessage = "Debe ingresar un nombre")]
     public string Nombre { get; set; }
