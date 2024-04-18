@@ -1,0 +1,67 @@
+﻿@page "/CreateEstudiantes"
+@rendermode InteractiveServer
+@inject EstudiantesService estudiantesService
+@inject NavigationManager navigation
+
+<PageTitle>Crear Nuevo Estudiante</PageTitle>
+<EditForm Model="estudiante" OnValidSubmit="Crear">
+	<DataAnnotationsValidator/>
+	<div class="container">
+		<div class="card shadow-lg">
+			@*Header*@
+			<div class="card-header">
+				<h1><strong>Crear Nuevo Estudiante</strong></h1>
+			</div>
+			@*Body*@
+			<div class="card-body">
+				@*Id*@
+				<label class="form-label" for="id"><strong>EstudianteId</strong></label>
+				<InputNumber id="id" class="form-control" @bind-Value="estudiante.EstudianteId"></InputNumber>
+				
+				@*Matricula*@
+				<label class="form-label" for="matricula"><strong>Matr&iacute;cula</strong></label>
+				<InputText id="matricula" class="form-control" @bind-Value="estudiante.Matricula"></InputText>
+				<ValidationMessage For="@(()=> estudiante.Matricula)"></ValidationMessage>
+
+				@*Nombre*@
+				<label class="form-label" for="nombre"><strong>Nombre</strong></label>
+				<InputText id="nombre" class="form-control" @bind-Value="estudiante.Nombre"></InputText>
+				<ValidationMessage For="@(()=> estudiante.Nombre)"></ValidationMessage>
+
+				@*Apellido*@
+				<label class="form-label" for="apellido"><strong>Apellido</strong></label>
+				<InputText id="apellido" class="form-control" @bind-Value="estudiante.Apellido"></InputText>
+				<ValidationMessage For="@(()=> estudiante.Apellido)"></ValidationMessage>
+
+				@*Carrera*@
+				<label class="form-label" for="carrera"><strong>Carrera</strong></label>
+				<InputText id="carrera" class="form-control" @bind-Value="estudiante.Carrera"></InputText>
+				<ValidationMessage For="@(()=> estudiante.Carrera)"></ValidationMessage>
+
+				@*Edad*@
+				<label class="form-label" for="edad"><strong>Edad</strong></label>
+				<InputNumber id="edad" class="form-control" @bind-Value="estudiante.Edad"></InputNumber>
+				<ValidationMessage For="@(()=> estudiante.Edad)"></ValidationMessage>
+			</div>
+			@*Footer*@
+			<div class="card-footer">
+				<button type="button" class="btn btn-outline-secondary" @onclick="Volver">Volver</button>
+				<button type="submit" class="btn btn-outline-success">Crear</button>
+			</div>
+		</div>
+	</div>
+</EditForm>
+
+@code {
+	public Estudiantes estudiante { get; set; } = new Estudiantes();
+
+	public async Task Crear()
+	{
+		await estudiantesService.Crear(estudiante);
+	}
+
+	public void Volver()
+	{
+		navigation.NavigateTo("/Estudiantes");
+	}
+}

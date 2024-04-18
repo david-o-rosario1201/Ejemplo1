@@ -1,0 +1,79 @@
+﻿@page "/Estudiantes"
+@rendermode InteractiveServer
+@inject EstudiantesService estudiantesService
+@inject NavigationManager navigation
+
+<PageTitle>Estudiantes</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		@*Header*@
+		<div class="card-header">
+			<h1><strong>Estudiantes</strong></h1>
+			@*boton azul*@
+			<button type="button" class="btn btn-outline-primary" @onclick="IrACrear">Crear</button>
+		</div>
+		@*Body*@
+		<div class="card-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>EstudianteId</th>
+						<th>Matr&iacute;cula</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Carrera</th>
+						<th>Edad</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var estudiante in estudiantes)
+					{
+						<tr>
+							<td>@estudiante.EstudianteId</td>
+							<td>@estudiante.Matricula</td>
+							<td>@estudiante.Nombre</td>
+							<td>@estudiante.Apellido</td>
+							<td>@estudiante.Carrera</td>
+							<td>@estudiante.Edad</td>
+							<td><button type="button" class="btn btn-outline-info" @onclick="()=>IrADetalles(estudiante.EstudianteId)">Detalles</button></td>
+							<td><button type="button" class="btn btn-outline-warning" @onclick="()=>IrAEditar(estudiante.EstudianteId)">Editar</button></td>
+							<td><button type="button" class="btn btn-outline-danger" @onclick="()=>IrAEliminar(estudiante.EstudianteId)">Eliminar</button></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		@*Footer*@
+		<div class="card-footer">
+			<p><strong>Total de Estudiantes:</strong> @estudiantes.Count</p>
+		</div>
+	</div>
+</div>
+
+@code {
+	public List<Estudiantes> estudiantes = new List<Estudiantes>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(500);
+		estudiantes = await estudiantesService.Listar(e => e.EstudianteId > 0);
+	}
+
+	public void IrACrear()
+	{
+		navigation.NavigateTo("/CreateEstudiantes");
+	}
+	public void IrADetalles(int id)
+	{
+		navigation.NavigateTo($"/ViewEstudiantes/estudianteId={id}");
+	}
+	public void IrAEditar(int id)
+	{
+		navigation.NavigateTo($"/EditEstudiantes/estudianteId={id}");
+	}
+	public void IrAEliminar(int id)
+	{
+		navigation.NavigateTo($"/DeleteEstudiantes/estudianteId={id}");
+	}
+}
