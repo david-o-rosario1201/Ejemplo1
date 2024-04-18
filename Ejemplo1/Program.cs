@@ -1,5 +1,6 @@
 using Ejemplo1.Components;
 using Ejemplo1.DAL;
+using Ejemplo1.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddRazorComponents()
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlite(ConStr));
+
+
+builder.Services.AddScoped<EstudiantesService>();
 
 var app = builder.Build();
 
