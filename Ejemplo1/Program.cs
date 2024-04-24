@@ -13,6 +13,7 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlite(ConStr));
 
 
+//Inyeccion de servicios
 builder.Services.AddScoped<EstudiantesService>();
 
 var app = builder.Build();

@@ -30,9 +30,11 @@ public class EstudiantesService
 
     public async Task<bool> Modificar(Estudiantes estudiante)
     {
-        _contexto.Estudiantes.Update(estudiante);
-        return await _contexto.SaveChangesAsync() > 0;
-    }
+		_contexto.Estudiantes.Update(estudiante);
+		var modifico = await _contexto.SaveChangesAsync() > 0;
+		_contexto.Entry(estudiante).State = EntityState.Detached;
+		return modifico;
+	}
 
     public async Task<bool> Existe(int id)
     {

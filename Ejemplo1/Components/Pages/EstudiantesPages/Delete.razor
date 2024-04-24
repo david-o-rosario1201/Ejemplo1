@@ -1,5 +1,55 @@
-﻿<h3>Delete</h3>
+﻿@page "/DeleteEstudiantes"
+@page "/DeleteEstudiantes/estudianteId={estudianteId:int}"
+@rendermode InteractiveServer
+@inject EstudiantesService estudiantesService
+@inject NavigationManager navigation
+
+<PageTitle>Eliminar Estudiante</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		@*Header*@
+		<div class="card-header">
+			<h1><strong>Eliminar Estudiante @estudiante.Nombre @estudiante.Apellido</strong></h1>
+		</div>
+		@*Body*@
+		<div class="card-body">
+			<h3><strong>¿Estás seguro de que quieres eliminar a este estudiante?</strong></h3>
+
+			<ul>
+				<li>EstudianteId: @estudiante.EstudianteId</li>
+				<li>Matr&iacute;cula @estudiante.Matricula</li>
+				<li>Nombre: @estudiante.Nombre</li>
+				<li>Apellido: @estudiante.Apellido</li>
+				<li>Edad: @estudiante.Edad</li>
+			</ul>
+
+		</div>
+		@*Footer*@
+		<div class="card-footer">
+			<button type="button" class="btn btn-outline-secondary bi bi-arrow-90deg-left" @onclick="Volver"> Volver</button>
+			<button type="submit" class="btn btn-outline-danger bi bi-trash2" @onclick="Eliminar"> Eliminar</button>
+		</div>
+	</div>
+</div>
 
 @code {
+	[Parameter]
+	public int estudianteId { get; set; }
+	public Estudiantes estudiante { get; set; } = new Estudiantes();
 
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(500);
+		estudiante = await estudiantesService.BuscarId(estudianteId);
+	}
+
+	public async Task Eliminar()
+	{
+		await estudiantesService.Eliminar(estudianteId);
+	}
+
+	public void Volver()
+	{
+		navigation.NavigateTo("/Estudiantes");
+	}
 }

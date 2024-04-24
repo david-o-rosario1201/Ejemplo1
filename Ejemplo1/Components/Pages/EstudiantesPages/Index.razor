@@ -10,7 +10,7 @@
 		<div class="card-header">
 			<h1><strong>Estudiantes</strong></h1>
 			@*boton azul*@
-			<button type="button" class="btn btn-outline-primary" @onclick="IrACrear">Crear</button>
+			<button type="button" class="btn btn-outline-primary" @onclick="IrACrear"> Crear</button>
 		</div>
 		@*Body*@
 		<div class="card-body">
@@ -36,9 +36,9 @@
 							<td>@estudiante.Apellido</td>
 							<td>@estudiante.Carrera</td>
 							<td>@estudiante.Edad</td>
-							<td><button type="button" class="btn btn-outline-info" @onclick="()=>IrADetalles(estudiante.EstudianteId)">Detalles</button></td>
-							<td><button type="button" class="btn btn-outline-warning" @onclick="()=>IrAEditar(estudiante.EstudianteId)">Editar</button></td>
-							<td><button type="button" class="btn btn-outline-danger" @onclick="()=>IrAEliminar(estudiante.EstudianteId)">Eliminar</button></td>
+							<td><button type="button" class="btn btn-outline-info bi bi-eye-fill" @onclick="()=>IrADetalles(estudiante.EstudianteId)"> Detalles</button></td>
+							<td><button type="button" class="btn btn-outline-warning bi bi-pencil-square" @onclick="()=>IrAEditar(estudiante.EstudianteId)"> Editar</button></td>
+							<td><button type="button" class="btn btn-outline-danger bi bi-trash2" @onclick="()=>IrAEliminar(estudiante.EstudianteId)"> Eliminar</button></td>
 						</tr>
 					}
 				</tbody>
